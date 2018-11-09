@@ -4,20 +4,22 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>Ligin</title>
+	<title>Login</title>
 	
 	<link rel="stylesheet" type="text/css" href="MyStyleA.css"/>
 	<script src = "validation.js" ></script>
     
 </head>
+<!--
 <header class="login">
-<a href="HomePage.html"> Home Page    </a> <a href="Registration.php">  Registration</a> <a href="Cart.html">  Cart</a>
-<a href="ProfilePage.html"> Profile</a>
+<a href="HomePage.html"> Home  </a> <a href="Registration.php">  Register</a> <!--<a href="Cart.html">  Cart</a>
+<a href="ProfilePage.html"> Profile</a>-->
 </header>
 <header>
 <img src="NIP.jpg" alt="Treee" style = "display:inline" width = "150" height = "150" />
 
 </header>
+<!--
  <div class="search-container">
     <form action="/action_page.php">
       <input type="text" placeholder="Search..." name="search">
@@ -31,16 +33,16 @@
   <a href="#">eye care</a>
   <a href="#">pain killers</a>
 </div>
+-->
 <body>
 
 
 	<section>
 	
 		<h2 id = "testing">Login</h2>
-		<p>Welcome to NIP! Login please to make any purchases </p>
+		<p>Welcome to NIP! Please login to make any purchases </p>
 		<br/>
-		<form id = "login" onsubmit ="return login()" action="Login.php" method="post">
-		<input type="hidden" name="submitted" value="1"/>
+		<form id = "login" action="Login.php" onsubmit="return login()" method="post">
 			<table>				
 					<tr><td>Email: </td><td> <input type="text" id="email" name="email" size="30" /></td></tr>					
 				
@@ -51,7 +53,7 @@
 		<br/>
 		<br/>
 		
-		<input class = "ordinaryLink submitButton" type = "submit" value = "Login"/>
+		<input class = "ordinaryLink submitButton" name="signIn" type = "submit" value = "Login"/>
 		
 		<p> No account? <a href="Registration.php">Sign up</a></p>
 	
@@ -66,12 +68,10 @@
 	<hr/>
 	
 	
-	<footer>
-		Validate <a href="https://validator.w3.org/nu/?doc=http%3A%2F%2Furegina.ca%2F~martinsp%2F" class = "ordinaryLink">HTML5</a>
-	</footer>
+
 	<script type = "text/javascript"  src = "validation.js" ></script>
-	<footer><a href="AdministratorPage.html">  Administrator Page</a></footer>
-<footer> © Nature In a Pocket 2018 </footer>
+	<!--<footer><a href="AdministratorPage.html">  Administrator Page</a></footer> -->
+<footer> Â© Nature In a Pocket 2018 </footer>
 </body>
 </html>
 
@@ -83,7 +83,7 @@ $reg_Pswd = "/^(\S*)?\d+(\S*)?$/";
 $email = "";
 $error = "";
 
-if (isset($_POST["submitted"]) && $_POST["submitted"])
+if (isset($_POST["signIn"]))
 {
 	$email = trim($_POST["email"]);
 	$password = trim($_POST["password"]);
@@ -96,7 +96,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
 
 	//add code here to select * from table User where email = '$email' AND password = '$password'
 	// start with
-	$q = "select * from OnlineStore where email = '$email' and password = '$password'";
+	$q = "select email, password FROM user Where email = '$email' and password = '$password'";
 	 
 	$r = $db->query($q);
 	$row = $r->fetch_assoc();
@@ -125,7 +125,7 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
 
 		session_start();
 		$_SESSION["email"] = $email;
-		header("Location: index.php");
+		header("Location: HomePage.php");
 		$db->close();
 		exit();
 	}
@@ -135,5 +135,5 @@ if (isset($_POST["submitted"]) && $_POST["submitted"])
 		$db->close();
 	}
 }
-
+echo "$error";
 ?>
